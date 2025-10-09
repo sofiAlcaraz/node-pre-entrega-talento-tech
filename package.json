@@ -1,0 +1,20 @@
+{
+  "name": "pre-entrega-talento-tech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sofiAlcaraz/node-pre-entrega-talento-tech.git"
+  },
+  "author": "Sofia Alcaraz",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/sofiAlcaraz/node-pre-entrega-talento-tech/issues"
+  },
+  "homepage": "https://github.com/sofiAlcaraz/node-pre-entrega-talento-tech#readme"
+}
