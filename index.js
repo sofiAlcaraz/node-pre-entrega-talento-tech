@@ -55,7 +55,7 @@ const postProduct = async (newTitle, newPrice) => {
     });
 };
 
-const editProduct = async (id, newTitle, newPrice) => {
+const putProduct = async (id, newTitle, newPrice) => {
   const product = { title: newTitle, price: newPrice };
 
   fetch(`https://fakestoreapi.com/products/${id}`, {
@@ -95,30 +95,40 @@ const deleteProduct = async (id) => {
     });
 };
 
+const validarID = (id) => {
+  if (isNaN(id) || id <= 0) {
+    console.log("Id no valido");
+    process.exit();
+  }
+};
+
 let [, , command, resource] = argv;
-command = command.toLowerCase();
+command = command.toUpperCase();
 resource = resource.toLowerCase();
 
-const typeCommand = ["put", "get", "delete", "post"];
+const typeCommand = ["PUT", "GET", "DELETE", "POST"];
 
 if (typeCommand.includes(command) == false) {
   console.log("Comando no encontrada");
   process.exit();
 }
+
 let id = resource ? resource.split("/")[1] : null; // split separa ['products', '3']
 id = parseInt(id);
 
-if (isNaN(id) && command == "get") {
-  //isNaN(id) &&
+if (command == "GET" && resource == "products") {
   getProducts();
-} else if (command == "get") {
+} else if (command == "GET" && resource.startsWith("products/")) {
+  validarID(id);
   getProduct(id);
-} else if (command == "post") {
+} else if (command == "POST" && resource == "products") {
   const [title, price] = argv.slice(4);
   postProduct(title, price);
-} else if (command == "put") {
+} else if (command == "PUT" && resource.startsWith("products/")) {
   const [title, price] = argv.slice(4);
-  editProduct(id, title, price);
-} else if (command == "delete") {
+  validarID(id);
+  putProduct(id, title, price);
+} else if (command == "DELETE" && resource.startsWith("products/")) {
+  validarID(id);
   deleteProduct(id);
 }
